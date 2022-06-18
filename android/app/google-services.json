@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "226577491984",
+    "project_id": "teacapp-3e404",
+    "storage_bucket": "teacapp-3e404.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:226577491984:android:83e8f9831d65311f700295",
+        "android_client_info": {
+          "package_name": "com.example.teaching_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "226577491984-kauuhqkas3vssqdnu7hi908stdmedkha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBn8IqN4G3IrTCfRsLq3zwf2wAyG-At4ps"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "226577491984-kauuhqkas3vssqdnu7hi908stdmedkha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

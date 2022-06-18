@@ -9,19 +9,18 @@ import 'package:teaching_app/screens/index_screen.dart';
 import 'package:teaching_app/screens/search_screen.dart';
 
 import 'game4/game4.dart';
+import 'screens/chatscreen.dart';
 import 'screens/universreen.dart';
+import 'screens/userscreen.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.white,
+      statusBarColor: Color(0xffF4FAFB),
       statusBarIconBrightness: Brightness.dark,
       systemNavigationBarColor: Colors.black));
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+
   runApp(const MyApp());
 }
 
@@ -31,8 +30,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => FilterProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => FilterProvider(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -53,10 +56,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final List<Widget> _screens = [
     const IndexScreen(),
-    Game4(),
+    const ChatScreen(),
     const SearchScreen(),
     const UniverScreen(),
-    const IndexScreen(),
+    UserInfo(),
   ];
   int _index = 0;
   @override

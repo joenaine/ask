@@ -2,13 +2,11 @@ import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:teaching_app/config/colors_.dart';
-import 'package:teaching_app/config/grants.dart';
+import 'package:teaching_app/repository/data.dart';
 import 'package:teaching_app/repository/repos.dart';
-import 'package:teaching_app/repository/univerlist.dart';
 import 'package:teaching_app/widgets/bottom_categories.dart';
 import 'package:teaching_app/widgets/categories.dart';
-
-import '../widgets/card_widget.dart';
+import 'package:teaching_app/widgets/job_card.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -21,6 +19,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Faker faker = Faker();
   final double _price = 0;
   int selectedPrice = 4;
+  TextEditingController controller = TextEditingController();
 
   final double _age = 0;
   List<String> subjects = [
@@ -35,8 +34,30 @@ class _SearchScreenState extends State<SearchScreen> {
     'По рейтингу',
     'По дате строения',
   ];
+
+  final List<Jobs> _search = [];
+
   List<String> selectedSubjects = [];
   bool search = false;
+
+  onSearch(String text) async {
+    _search.clear();
+    if (text.isEmpty) {
+      setState(() {});
+      return;
+    }
+
+    for (var f in joblistFinal) {
+      if (f.title.toLowerCase().contains(text) ||
+          f.time.toLowerCase().contains(text) ||
+          f.company.toLowerCase().contains(text.toLowerCase()) ||
+          f.location.toLowerCase().contains(text.toLowerCase()) ||
+          f.price.toLowerCase().contains(text.toLowerCase())) _search.add(f);
+    }
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -49,6 +70,7 @@ class _SearchScreenState extends State<SearchScreen> {
             child: SizedBox(
               width: size.width * 0.9,
               child: TextFormField(
+                onChanged: onSearch,
                 cursorColor: greenMed,
                 enableSuggestions: true,
                 textAlign: TextAlign.start,
@@ -95,34 +117,34 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
           ),
-          search
-              ? ListView.builder(
-                  shrinkWrap: true,
-                  primary: false,
-                  itemCount: 1,
-                  itemBuilder: (context, index) => TeacherCard(
-                      image: univerList[index].image,
-                      title: univerList[index].title,
-                      city: univerList[index].city),
-                )
-              : Column(
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                      child: CategoriesFilter(cities: searchFilter),
-                    ),
-                    ListView.builder(
-                        shrinkWrap: true,
-                        primary: false,
-                        itemCount: grants.length,
-                        itemBuilder: (context, index) => TeacherCard(
-                              image: 'assets/splash.png',
-                              title: grants[index]['title']!,
-                              city: 'Колличество грантов:  ' +
-                                  grants[index]['amount']!,
-                            ))
+                    CategoriesFilter(cities: searchFilter),
+                    Container(
+                        child: _search.isNotEmpty || controller.text.isNotEmpty
+                            ? ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: _search.length,
+                                itemBuilder: (context, i) {
+                                  final b = _search[i];
+                                  return JobCardWidget(
+                                      title: b.title,
+                                      city: b.location,
+                                      price: b.price,
+                                      company: b.company,
+                                      time: b.time);
+                                },
+                              )
+                            : Container())
                   ],
-                )
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );

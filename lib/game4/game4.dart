@@ -74,11 +74,17 @@ class _Game4State extends State<Game4> {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back_ios)),
         title: Text(
           'Вопрос ' '${widget.questionsBrain.indexOfQuest + 1}',
           style: const TextStyle(color: Colors.black, fontSize: 22),
         ),
         backgroundColor: Colors.transparent,
+        iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,
         centerTitle: true,
       ),

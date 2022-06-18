@@ -1,62 +1,123 @@
 class Jobs {
-  String companyName;
-  String stack;
-  String shortdescription;
-  String image;
-  String applicants;
-  String numApplicant;
-  String longdescription;
+  String title;
+  String profobl;
+  String price;
+  String company;
+  String location;
+  String experience;
+  String time;
+  String education;
   Jobs({
-    required this.companyName,
-    required this.image,
-    required this.shortdescription,
-    required this.applicants,
-    required this.stack,
-    required this.numApplicant,
-    required this.longdescription,
+    required this.title,
+    required this.profobl,
+    required this.price,
+    required this.company,
+    required this.location,
+    required this.experience,
+    required this.time,
+    required this.education,
   });
-  static List<Jobs> generatejobs() {
-    return [
-      Jobs(
-          companyName: 'Dribbble',
-          image: 'images/dribbble.png',
-          stack: 'Senior UI UX Designer',
-          shortdescription:
-              'We are looking for an experienced mobile developer to join our dynamic team. Your role will require you to create and maintain mobile applications for Android and iOS.',
-          applicants: 'Be in the first 20 applicants',
-          numApplicant: '20 applicants',
-          longdescription:
-              'Flutter is a free and open-source mobile UI framework created by Google and released in May 2017. In a few words, it allows you to create a native mobile application with only one codebase. This means that you can use one programming language and one codebase to create two different apps (for iOS and Android).'),
-      Jobs(
-          companyName: 'Behance',
-          image: 'images/behance.png',
-          stack: 'Senior UI UX Designer',
-          shortdescription:
-              'We are looking for an experienced mobile developer to join our dynamic team. Your role will require you to create and maintain mobile applications for Android and iOS.',
-          applicants: 'Be in the first 20 applicants',
-          numApplicant: '20 applicants',
-          longdescription:
-              'Flutter is a free and open-source mobile UI framework created by Google and released in May 2017. In a few words, it allows you to create a native mobile application with only one codebase. This means that you can use one programming language and one codebase to create two different apps (for iOS and Android).'),
-      Jobs(
-          companyName: 'GitHub',
-          image: 'images/github.png',
-          stack: 'Senior UI UX Designer',
-          shortdescription:
-              'We are looking for an experienced mobile developer to join our dynamic team. Your role will require you to create and maintain mobile applications for Android and iOS.',
-          applicants: 'Be in the first 20 applicants',
-          numApplicant: '20 applicants',
-          longdescription:
-              'Flutter is a free and open-source mobile UI framework created by Google and released in May 2017. In a few words, it allows you to create a native mobile application with only one codebase. This means that you can use one programming language and one codebase to create two different apps (for iOS and Android).'),
-      Jobs(
-          companyName: 'Instagram',
-          image: 'images/instagram.png',
-          stack: 'Senior UI UX Designer',
-          shortdescription:
-              'We are looking for an experienced mobile developer to join our dynamic team. Your role will require you to create and maintain mobile applications for Android and iOS.',
-          applicants: 'Be in the first 20 applicants',
-          numApplicant: '20 applicants',
-          longdescription:
-              'Flutter is a free and open-source mobile UI framework created by Google and released in May 2017. In a few words, it allows you to create a native mobile application with only one codebase. This means that you can use one programming language and one codebase to create two different apps (for iOS and Android).'),
-    ];
-  }
 }
+
+List<Jobs> joblistFinal = [
+  Jobs(
+      title: 'Помощник бухгалтера',
+      profobl: 'Финансы и бухучет',
+      price: 'от 60 000 до 80 000 тг.',
+      company:
+          'Государственное коммунальное казенное предприятие "Ясли-сад № 67 "Шұғыла" акимата города Нур-Султан',
+      location: 'Казахстан, Г. Нур-Султан, Р-Н Алматы',
+      experience: '1 год стажа',
+      time: 'полный рабочий день',
+      education: 'техническое и профессиональное'),
+  Jobs(
+      title: 'Швея',
+      profobl: 'Производство',
+      price: 'от 60 000 тг.',
+      company:
+          'Государственное коммунальное казенное предприятие "Ясли-сад № 67 "Шұғыла" акимата города Нур-Султан',
+      location: 'Казахстан, Г. Нур-Султан, Р-Н Алматы',
+      experience: '1 год стажа',
+      time: 'полный рабочий день',
+      education: 'техническое и профессиональное'),
+  Jobs(
+    title:
+        'Заведующий кабинетом (по технике безопасности, техническим, учебно-методическим, учебным и др.)',
+    profobl: 'Образование и воспитание',
+    price: 'от 60 000 до 80 000 тг.',
+    company:
+        'Государственное коммунальное казенное предприятие "Ясли-сад № 67 "Шұғыла" акимата города Нур-Султан',
+    location: 'Казахстан, Г. Нур-Султан, Р-Н Алматы',
+    experience: '3 года стажа',
+    time: 'полный рабочий день',
+    education: 'высшее',
+  ),
+  Jobs(
+      title: 'Воспитатель',
+      profobl: 'Образование и воспитание',
+      price: 'от 80 000 до 130 000 тг.',
+      company:
+          'Государственное коммунальное казенное предприятие "Ясли-сад № 67 "Шұғыла" акимата города Нур-Султан',
+      location: 'Казахстан, Г. Нур-Султан, Р-Н Алматы',
+      experience: '2 года стажа',
+      time: 'полный рабочий день',
+      education: 'высшее'),
+  Jobs(
+      title: 'Кассир общепита',
+      profobl: 'Проживание и питание',
+      price: 'от 95 000 тг.',
+      company: 'Товарищество с ограниченной ответственностью "АЛТЕМИР-GROUP"',
+      location: 'Казахстан, Г. Нур-Султан, Р-Н Есиль',
+      experience: '1 год стажа',
+      time: 'полный рабочий день',
+      education: 'техническое и профессиональное'),
+  Jobs(
+      title: 'Бухгалтер',
+      profobl: 'Финансы и бухучет',
+      price: 'от 95 400 тг.',
+      company:
+          'Товарищество с ограниченной ответственностью "ИСТОК АУДИО КАЗАХСТАН"',
+      location: 'Казахстан, Г. Нур-Султан, Р-Н Сарыарка',
+      experience: 'Без опыта работы',
+      time: 'полный рабочий день',
+      education: 'высшее'),
+  Jobs(
+      title: 'Геодезист',
+      profobl: 'Строительство и архитектура',
+      price: 'от 95 400 тг.',
+      company:
+          'Товарищество с ограниченной ответственностью "Топография и Геодезия"',
+      location: 'Казахстан, Г. Нур-Султан, Р-Н Алматы',
+      experience: 'Без опыта работы',
+      time: 'полный рабочий день',
+      education: 'техническое и профессиональное'),
+  Jobs(
+      title: 'Специалист по обслуживанию населения',
+      profobl: 'Социальное обслуживание',
+      price: 'от 150 000 тг.',
+      company:
+          'Филиал НАО «Государственная корпорация «Правительство для граждан» по городу Нур-Султан',
+      location: 'Казахстан, Г. Нур-Султан',
+      experience: 'Без опыта работы',
+      time: 'полный рабочий день',
+      education: 'высшее'),
+  Jobs(
+      title: 'Мастер ремонтно-строительной группы',
+      profobl: 'Строительство и архитектура',
+      price: 'от 350 000 тг.',
+      company:
+          'Товарищество с ограниченной ответственностью "KVINTEC construction"',
+      location: 'Казахстан, Г. Нур-Султан, Р-Н Алматы',
+      experience: '1 год стажа',
+      time: 'полный рабочий день',
+      education: 'техническое и профессиональное'),
+  Jobs(
+      title: 'Сантехник',
+      profobl: 'Строительство и архитектура',
+      price: 'от 220 000 тг.',
+      company: 'Товарищество с ограниченной ответственностью "Сатурн-Строй"',
+      location: 'Казахстан, Г. Нур-Султан, Р-Н Байконыр',
+      experience: '2 года стажа',
+      time: 'полный рабочий день',
+      education: 'послесреднее'),
+];

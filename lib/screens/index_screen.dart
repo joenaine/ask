@@ -1,17 +1,21 @@
+import 'dart:convert';
+
 import 'package:badges/badges.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:teaching_app/config/colors_.dart';
 import 'package:teaching_app/config/jobs.dart';
+import 'package:teaching_app/game4/game4.dart';
+import 'package:teaching_app/models/jobs.dart';
 import 'package:teaching_app/provider.dart/filter.dart';
 import 'package:teaching_app/repository/repos.dart';
 import 'package:teaching_app/widgets/bottom_categories.dart';
-
-import '../widgets/card_widget.dart';
+import 'package:teaching_app/widgets/headerScroll.dart';
+import 'package:teaching_app/widgets/job_card.dart';
+import 'package:teaching_app/widgets/scrollhead.dart';
 
 class IndexScreen extends StatefulWidget {
   const IndexScreen({Key? key}) : super(key: key);
@@ -21,22 +25,10 @@ class IndexScreen extends StatefulWidget {
 }
 
 class _IndexScreenState extends State<IndexScreen> {
+  late Future<List<JobsMobel>> jobList;
+  TextEditingController controller = TextEditingController();
   Faker faker = Faker();
-  final PageController _pageController = PageController(viewportFraction: 0.9);
-  final double _price = 0;
-  List<String> priceRange = [
-    "\$1 - \$5",
-    "\$5 - \$10",
-    "\$10 - \$15",
-    "\$15 - \$25",
-    "\$25 - \$50",
-    "\$50 - \$100"
-  ];
-  int selectedPrice = 4;
 
-  final double _age = 0;
-
-  String selectedGender = "Male";
   int limit = 2; // recomended tutor min
   @override
   Widget build(BuildContext context) {
@@ -107,18 +99,14 @@ class _IndexScreenState extends State<IndexScreen> {
           const SizedBox(
             height: 35,
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "Найди своё призвание",
-              style: TextStyle(
-                  color: greenDark, fontSize: 29, fontWeight: FontWeight.w600),
-            ),
-          ),
+
           SizedBox(
             width: size.width * 0.9,
             child: TextFormField(
+              onFieldSubmitted: (value) {
+                filterProvider.setNewFilter(value);
+              },
+              controller: controller,
               cursorColor: greenMed,
               enableSuggestions: true,
               textAlign: TextAlign.start,
@@ -164,30 +152,57 @@ class _IndexScreenState extends State<IndexScreen> {
                       borderSide: BorderSide.none)),
             ),
           ),
-          SizedBox(
-            height: 200,
-            child: PageView.builder(
-              controller: _pageController,
-              padEnds: true,
-              itemCount: 3,
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
-              itemBuilder: (_, __) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Image.asset('assets/cardcar.jpeg'),
-                );
-              },
+              scrollDirection: Axis.horizontal,
+              child: Row(children: [
+                HeaderScroll(filterProvider: filterProvider),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Game4(),
+                    ));
+                  },
+                  child: const ScrollHead(
+                    title: 'Тест \nГолланда',
+                    icons: 'assets/test.png',
+                  ),
+                ),
+                const ScrollHead(
+                  title: 'Полезные статьи и советы',
+                  icons: 'assets/job.png',
+                ),
+              ]),
             ),
           ),
-          SmoothPageIndicator(
-            controller: _pageController,
-            count: 3,
-            effect: ExpandingDotsEffect(
-                dotHeight: 6,
-                dotWidth: 6,
-                dotColor: greenTint1,
-                activeDotColor: greenMed),
-          ),
+
+          // SizedBox(
+          //   height: 200,
+          //   child: PageView.builder(
+          //     controller: _pageController,
+          //     padEnds: true,
+          //     itemCount: 3,
+          //     physics: const BouncingScrollPhysics(),
+          //     itemBuilder: (_, __) {
+          //       return Padding(
+          //         padding: const EdgeInsets.symmetric(horizontal: 8),
+          //         child: Image.asset('assets/cardcar.jpeg'),
+          //       );
+          //     },
+          //   ),
+          // ),
+          // SmoothPageIndicator(
+          //   controller: _pageController,
+          //   count: 3,
+          //   effect: ExpandingDotsEffect(
+          //       dotHeight: 6,
+          //       dotWidth: 6,
+          //       dotColor: greenTint1,
+          //       activeDotColor: greenMed),
+          // ),
           Padding(
             padding: const EdgeInsets.only(top: 6, left: 30, right: 30),
             child: Row(
@@ -236,15 +251,35 @@ class _IndexScreenState extends State<IndexScreen> {
           ListView.builder(
             shrinkWrap: true,
             primary: false,
-            itemCount: 5,
+            itemCount: jobs.length,
             // itemCount: min(limit, 12),
-            itemBuilder: (context, index) => TeacherCard(
-                image: 'assets/icons/user.png',
+            itemBuilder: (context, index) => JobCardWidget(
+                company: jobs[index]['company']!,
+                time: jobs[index]['time']!,
+                price: jobs[index]['price']!,
                 title: jobs[index]['title']!,
                 city: jobs[index]['location']!),
           ),
         ],
       ),
     );
+  }
+
+  Future<List<JobsMobel>> carsJson() async {
+    try {
+      await Future.delayed(const Duration(seconds: 1));
+      String readString = await DefaultAssetBundle.of(context)
+          .loadString('assets/json_job.json');
+
+      var jsonObject = jsonDecode(readString);
+
+      List<JobsMobel> allJobs = (jsonObject as List)
+          .map((carMap) => JobsMobel.fromJson(carMap))
+          .toList();
+
+      return allJobs;
+    } catch (e) {
+      return Future.error(e.toString());
+    }
   }
 }

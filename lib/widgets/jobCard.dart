@@ -8,14 +8,13 @@ class JobCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final list = Jobs.generatejobs();
     return ListView.separated(
       padding: EdgeInsets.zero,
       physics: const NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       itemBuilder: (context, index) {
-        var job = list[index];
+        var job = joblistFinal[index];
         return GestureDetector(
           onTap: () {
             // Navigator.of(context).push(
@@ -30,7 +29,7 @@ class JobCard extends StatelessWidget {
         );
       },
       separatorBuilder: (context, index) => const Divider(),
-      itemCount: list.length,
+      itemCount: joblistFinal.length,
     );
   }
 }

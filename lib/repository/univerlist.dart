@@ -1,5 +1,5 @@
 import '../models/univers.dart';
 
 List<UniverModel> univerList = [
-  UniverModel(image: 'assets/icons/user.png', title: 'AITU', city: 'Astana')
+  UniverModel(price: '500 000', title: 'AITU', city: 'Astana')
 ];
